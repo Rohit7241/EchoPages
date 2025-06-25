@@ -1,0 +1,20 @@
+{
+  "name": "echopages",
+  "version": "1.0.0",
+  "description": "a daily journal to pen down events",
+  "homepage": "https://github.com/Rohit7241/EchoPages#readme",
+  "bugs": {
+    "url": "https://github.com/Rohit7241/EchoPages/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rohit7241/EchoPages.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
