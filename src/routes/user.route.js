@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteUser, registerUser } from "../controllers/user.controller.js";
+import { deleteUser, loginUser, registerUser } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import multer from "multer";
 const formparser=multer().none()
@@ -21,4 +21,6 @@ router.route("/register").post(
 
 router.route("/delete").post(formparser,deleteUser)
 
+
+router.route("/login").post(formparser,loginUser)
 export default router

@@ -5,6 +5,28 @@ import {ApiResponse} from '../utils/apiResponse.js'
 import { uploadImage } from '../utils/cloudinary.js'
 import bcrypt from "bcrypt"
 
+const generateAccessAndRefreshToken=async function(userid){
+   try
+   {
+   
+    let user=await User.findById(userid)
+    if(!user){
+      
+        throw new ApiError(404,"User not found")
+    }
+ 
+    const Accesstoken=user.generateAccessToken()
+    const Refreshtoken=user.generateRefreshToken()
+    user.refreshToken=Refreshtoken
+   
+    await user.save({validateBeforeSave:false})
+    return {Accesstoken,Refreshtoken}}
+    catch(err){
+        throw new ApiError(500,"Something went wrong in generating tokens",[err]);
+    }
+}
+
+
 const registerUser=asynchandler(async(req,res)=>{
     //steps:
     //get user details from frontend
@@ -44,7 +66,6 @@ const registerUser=asynchandler(async(req,res)=>{
     if(!ProfilePic){
         throw new ApiError(400,"Profile picture required")
     }
-    let newpassword
    const hashedPassword = await bcrypt.hash(password, 10)
    const user=await User.create({
     name,
@@ -54,12 +75,12 @@ const registerUser=asynchandler(async(req,res)=>{
     password:hashedPassword,
     username:username.toLowerCase(),
    })
-
+   const {Accesstoken,refreshtoken}=generateAccessAndRefreshToken(user._id)
    const createduser=await User.findById(user._id)
    if(!createduser){
     throw new ApiError(500,"something went wrong")
    }
-
+   
    return res.status(201).json(
     new ApiResponse(200,createduser,"User registered")
    )
@@ -77,14 +98,51 @@ const deleteUser=asynchandler(async(req,res)=>{
   if(!result)
     throw new ApiError(400,"password incorrect")
 
-  await User.deleteOne({_id:user._id})
+  await User.findByIdAndDelete({_id:user._id})
   return res.status(201).json(
     new ApiResponse(200,{},"deleted user successfully")
   )
 })
+const loginUser=asynchandler(async(req,res)=>{
+    const {username,email,password}=req.body;
+    if(!username&&!email){
+        throw new ApiError(400,"username or email required")
+    }
+    const user=await User.findOne({
+        $or:[
+            {username},
+            {email}
+        ]
+    }).select("+password")
+    if(!user){
+        throw new ApiError(401,"User not found")
+    }
+    let result=await bcrypt.compare(password,user.password)
+    if(!result){
+        throw new ApiError(400,"incorrect credentials")
+    }
+    const {Accesstoken,refreshtoken}=await generateAccessAndRefreshToken(user._id);
+    const loggedinuser=await User.findById(user._id).select("-refreshToken")
 
+   
+    const options={//to make cookies modifiable only through server not through frontend
+        httpOnly:true,
+        secure:true
+    }
+ 
+    return res.status(200)
+    .cookie("AccessToken",Accesstoken,options)
+    .cookie("RefreshToken",refreshtoken,options)
+    .json(
+    new ApiResponse(200,{
+        user:loggedinuser,Accesstoken,refreshtoken
+    },"user logged in successfully")
+ )
+
+})
 
 export {
     registerUser,
-    deleteUser
+    deleteUser,
+    loginUser
 }
