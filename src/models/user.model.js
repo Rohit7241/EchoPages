@@ -19,6 +19,12 @@ email:{
     lowercase:true,
     trim:true
 },
+password:{
+    type:String,
+    required:true,
+    minlength:8,
+    select:false
+},
 profilePic:{
     type:String,
     required:true
