@@ -1,11 +1,14 @@
-
+import NavBar from "./components/navbar"
+import bgimage from "../src/assets/download.jpg"
 
 function App() {
     return(
-      <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-4xl font-bold text-indigo-600 underline">EchoPages</h1>
-      <p className="mt-4 text-lg text-gray-700">Tailwind CLI is working perfectly ✅</p>
-    </div>
+          <>
+          <NavBar/>
+          <div >
+            <img src={bgimage} alt="" className="w-full" />
+          </div>
+          </>
     )  
 }
 
