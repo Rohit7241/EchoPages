@@ -140,9 +140,20 @@ const loginUser=asynchandler(async(req,res)=>{
  )
 
 })
-
+const logoutuser=asynchandler(async(req,res)=>{
+    const user=req.user
+    User.findByIdAndUpdate(user._id,{
+        refreshToken:""
+    })
+    return res
+    .status(200)
+    .clearCookie("AccessToken")
+    .clearCookie("RefreshToken")
+    .json(new ApiResponse(200,{},"user logged out successfully"))
+})
 export {
     registerUser,
     deleteUser,
-    loginUser
+    loginUser,
+    logoutuser
 }

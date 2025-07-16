@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { deleteUser, loginUser, registerUser } from "../controllers/user.controller.js";
+import { deleteUser, loginUser, logoutuser, registerUser } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import multer from "multer";
+import { verifyjwt } from "../middlewares/jwt.middleware.js";
 const formparser=multer().none()
 
 const router=Router();
@@ -20,7 +21,6 @@ router.route("/register").post(
 
 
 router.route("/delete").post(formparser,deleteUser)
-
-
+router.route("/logout").post(formparser,verifyjwt,logoutuser)
 router.route("/login").post(formparser,loginUser)
 export default router

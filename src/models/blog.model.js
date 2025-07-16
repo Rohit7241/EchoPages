@@ -13,15 +13,31 @@ content:{
 },
 author:{
     type:Schema.Types.ObjectId,
-    ref:"User"
+    ref:"User",
+    required:true
 },
-comment:[{
+comments:[    
+    {
+      author: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+      },
+      content: {
+        type: String,
+        required: true,
+        trim: true,
+        maxlength: 500
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now
+      }
+    }
+],
+likes:[{
     type:Schema.Types.ObjectId,
-    ref:"Comment"
-}],
-like:[{
-    type:Schema.Types.ObjectId,
-    ref:"Like"
+    ref:"User"
 }]
 },{
     timestamps:true
