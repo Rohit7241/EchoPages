@@ -1,23 +1,22 @@
 import { useState } from "react";
-import Home from "../pages/home";
 
 export default function Sidepanel({isopen,open}){
     
-   
+    
     return (
         <>
         <button onClick={()=>open()}
-        className="text-base mr-5 bg-indigo-200 hover:bg-indigo-400 hover:text-slate-300 w-18 h-8 rounded text-slate-500">
-          Menu  
+        className={`z-60 flex justify-center align-center text-base ${isopen?"mr-40 p-2 bg-indigo-300 w-25 text-slate-800 ":"mr-5 w-15 p-1 bg-indigo-200 text-slate-500"}  hover:bg-indigo-400 hover:text-slate-300  h-9 rounded `}>
+         {isopen? "Close Menu":"Menu"} 
         </button>
         {isopen&&
-        <div className="fixed top-0 bg-white/30 backdrop-invert backdrop-opacity-20 w-40 h-full right-0 mt-15">
-        <div className="ml-5 mt-5 flex text-slate-600 flex-col">
-            <a href="/home " className="hover:text-sky-300">Home</a>  
-            <a href="/home"className="mt-2 hover:text-sky-300">My Blogs</a>  
-            <a href="/home"className="mt-2 hover:text-sky-300">My Profile</a>  
-            <a href="/home"className="mt-2 hover:text-sky-300">Create Blog</a>  
-            <a href="/home"className="mt-2 hover:text-sky-300">Login/Logout</a>  
+        <div className={`fixed pt-15 top-0 z-50 bg-white/50 backdrop-invert backdrop-opacity-10 w-70 h-screen rounded-l right-0`}>
+        <div className="ml-5 mt-5 flex font-semibold text-slate-600 flex-col">
+            <a href="/home" className="hover:text-red-300">Home</a>  
+            <a href="/home"className="mt-2 hover:text-red-300">My Blogs</a>  
+            <a href="/home"className="mt-2 hover:text-red-300">My Profile</a>  
+            <a href="/home"className="mt-2 hover:text-red-300">Create Blog</a>   
+            <a href="/home"className="mt-2 hover:text-red-300">Login/Logout</a>  
         </div>
         </div>
         }
