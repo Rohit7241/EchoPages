@@ -7,7 +7,7 @@ export default function Home(){
         <>
         
            <NavBar/>
-            <main className="flex-1 pt-20 h-full bg-slate-200 p-6">
+            <main className="flex-1 pt-20 h-full bg-white-500 p-6">
                 <BlogCard title={title} content={content}/>
                 <BlogCard title={title} content={content}/>
                 <BlogCard title={title} content={content}/>

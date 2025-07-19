@@ -6,7 +6,7 @@ export default function Sidepanel({isopen,open}){
     return (
         <>
         <button onClick={()=>open()}
-        className={`z-60 flex justify-center align-center text-base ${isopen?"mr-40 p-2 bg-indigo-300 w-25 text-slate-800 ":"mr-5 w-15 p-1 bg-indigo-200 text-slate-500"}  hover:bg-indigo-400 hover:text-slate-300  h-9 rounded `}>
+        className={`z-60 flex justify-center align-center text-base   ${isopen?"mr-35 p-2 bg-white w-30 text-slate-800 ":"mr-5 w-25 p-1 bg-white text-slate-800"}  hover:bg-indigo-400 hover:text-white text-lg  h-9 rounded `}>
          {isopen? "Close Menu":"Menu"} 
         </button>
         {isopen&&
