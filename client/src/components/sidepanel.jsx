@@ -1,7 +1,10 @@
 import { useState } from "react";
+import {
+  Link,
+} from "react-router-dom";
+import React from "react";
 
 export default function Sidepanel({isopen,open}){
-    
     
     return (
         <>
@@ -12,11 +15,10 @@ export default function Sidepanel({isopen,open}){
         {isopen&&
         <div className={`fixed pt-15 top-0 z-50 bg-white/50 backdrop-invert backdrop-opacity-10 w-70 h-screen rounded-l right-0`}>
         <div className="ml-5 mt-5 flex font-semibold text-slate-600 flex-col">
-            <a href="/home" className="hover:text-red-300">Home</a>  
-            <a href="/home"className="mt-2 hover:text-red-300">My Blogs</a>  
-            <a href="/home"className="mt-2 hover:text-red-300">My Profile</a>  
-            <a href="/home"className="mt-2 hover:text-red-300">Create Blog</a>   
-            <a href="/home"className="mt-2 hover:text-red-300">Login/Logout</a>  
+            <Link to="/home" className="hover:text-red-300">Home</Link>  
+            <Link to="/myprofile" className="mt-2 hover:text-red-300">My Profile</Link>  
+            <Link to="/createblog" className="mt-2 hover:text-red-300">Create Blog</Link>   
+            <Link to="/login" className="mt-2 hover:text-red-300">Login/Logout</Link>  
         </div>
         </div>
         }

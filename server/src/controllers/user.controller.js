@@ -100,13 +100,13 @@ const deleteUser=asynchandler(async(req,res)=>{
 
   await User.findByIdAndDelete({_id:user._id})
   return res.status(201).json(
-    new ApiResponse(200,{},"deleted user successfully")
+    new ApiResponse(200,{},"Deleted user successfully")
   )
 })
 const loginUser=asynchandler(async(req,res)=>{
     const {username,email,password}=req.body;
     if(!username&&!email){
-        throw new ApiError(400,"username or email required")
+        throw new ApiError(400,"Username or Email required")
     }
     const user=await User.findOne({
         $or:[
@@ -119,7 +119,7 @@ const loginUser=asynchandler(async(req,res)=>{
     }
     let result=await bcrypt.compare(password,user.password)
     if(!result){
-        throw new ApiError(400,"incorrect credentials")
+        throw new ApiError(400,"Incorrect Credentials")
     }
     const {Accesstoken,refreshtoken}=await generateAccessAndRefreshToken(user._id);
     const loggedinuser=await User.findById(user._id).select("-refreshToken")
