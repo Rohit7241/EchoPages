@@ -10,7 +10,7 @@ function App() {
           {/* <Home/> */}
           {/* <BlogPage title={title} content={content}/> */}
           {/* <LoginPage/> */}
-          {/* <ProfilePage/> */}
+          {/* <ProfilePage user="false"/> */}
           <MyProfile/>
           </>
     )  

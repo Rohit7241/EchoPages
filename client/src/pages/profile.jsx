@@ -25,10 +25,10 @@ export default function ProfilePage({user}) {
             <h1 className="text-3xl font-bold">{name}</h1>
             <p className="mt-3 text-xl text-gray-800">{about}</p>
             <p className="mt-3 text-xl text-gray-800">{blogs} blog contributions</p>
-            <div className="flex">
-              <button className="h-10 w-auto p-2 mt-5 text-white bg-indigo-400 hover:bg-indigo-500 rounded-xl">Create New Blog</button>
+            {user=="true"&&<div className="flex">
+            <button className="h-10 w-auto p-2 mt-5 text-white bg-indigo-400 hover:bg-indigo-500 rounded-xl">Create New Blog</button>
              <button className="h-10 ml-10 w-auto p-2 mt-5 bg-rose-200 hover:bg-rose-300 rounded-xl">Delete Account</button>
-            </div>
+            </div>}
 
           </div>
         </div>
@@ -37,7 +37,7 @@ export default function ProfilePage({user}) {
         <div className="flex flex-col mt-10 gap-6 flex items-center px-6 pb-10">
             <h1 className="text-4xl font-semibold">BLOGS</h1>
           {[...Array(8)].map((_, i) => (
-            <BlogCard key={i} title={title} content={content} />
+            <BlogCard key={i} title={title} content={content} user={user}/>
           ))}
         </div>
       </div>
