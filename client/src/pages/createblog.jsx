@@ -9,7 +9,7 @@ export default function CreateBlog() {
 
   return (
     <>
-      <NavBar />
+      <NavBar/>
       <div className="mt-15 bg-blue-200 min-h-screen w-full">
         <form onSubmit={createblogfunc}>
           <div className="flex flex-col">

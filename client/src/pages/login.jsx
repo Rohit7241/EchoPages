@@ -2,7 +2,8 @@ import NavBar from "../components/navbar";
 import image from "../assets/image.webp"
 import { useState } from "react";
 import axios from "axios"
-import {useNavigate} from "react-router-dom"
+import {useNavigate,Link} from "react-router-dom"
+
 export default function LoginPage(){
   
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function LoginPage(){
       username: username,
       email: email,
       password: password
-    })
+    },{withCredentials:true})
     navigate("/home")
     } catch (error) {
      const html = error.response.data;
@@ -44,6 +45,7 @@ export default function LoginPage(){
                 <input type="password" className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setpass(e.target.value)} name="password" id="" value={password}/>
               </form>
                <button className="h-10 text-lg  w-25 rounded-xl mt-10 hover:bg-red-400 items-center bg-red-300" onClick={loginuser}>Submit</button>
+                 <h1 className="mt-5">New User? <Link className="text-blue-900" to="/register">Register</Link></h1>
             </div>
         </div>
         </>

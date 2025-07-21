@@ -5,3 +5,4 @@ server/.env
 dist/
 importantnotes
 node_modules
+users.txt

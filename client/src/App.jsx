@@ -7,6 +7,7 @@ import LoginPage from "./pages/login";
 import ProfilePage from "./pages/profile";
 import MyProfile from "./pages/myprofilepage";
 import CreateBlog from "./pages/createblog";
+import RegisterUser from "./pages/register";
 
 function App() {
   let title="Google hired me"
@@ -29,6 +30,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage user="false" />} />
         <Route path="/myProfile" element={<MyProfile />} />
         <Route path="/createblog" element={<CreateBlog/>} />
+        <Route path="/register" element={<RegisterUser/>} />
         <Route path="/blog" element={<BlogPage title={title} content={content} />} />
       </Routes>
     </BrowserRouter>

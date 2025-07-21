@@ -46,8 +46,9 @@ const registerUser=asynchandler(async(req,res)=>{
     const existUser=await User.findOne({username})
 
     if(existUser){
-        throw new ApiError(409,"User already exists")
+        throw new ApiError(409,"UserName already taken")
     }
+
     const profilepicLocal=req.files?.ProfilePic[0].path
     let coverImageLocal;
     if(req.files&&req.files.coverImage){
@@ -124,10 +125,9 @@ const loginUser=asynchandler(async(req,res)=>{
     const {Accesstoken,refreshtoken}=await generateAccessAndRefreshToken(user._id);
     const loggedinuser=await User.findById(user._id).select("-refreshToken")
 
-   
     const options={//to make cookies modifiable only through server not through frontend
         httpOnly:true,
-        secure:true
+        secure:false
     }
  
     return res.status(200)
@@ -151,9 +151,18 @@ const logoutuser=asynchandler(async(req,res)=>{
     .clearCookie("RefreshToken")
     .json(new ApiResponse(200,{},"user logged out successfully"))
 })
+const getuser=asynchandler(async(req,res)=>{
+    const user=await User.findById(req.user._id);
+   if(!user)
+    throw new ApiError(404,"User not Found")
+  res.status(200).json(
+    new ApiResponse(200,user,"fetched user")
+  )
+})
 export {
     registerUser,
     deleteUser,
     loginUser,
-    logoutuser
+    logoutuser,
+    getuser
 }

@@ -8,9 +8,9 @@ import { User } from "../models/user.model.js";
 const verifyjwt=asynchandler(async(req,res,next)=>{
  try
  {const token=req.cookies.AccessToken
- if(!token){
+    if(!token){
     throw new ApiError(404,"unauthorized request")
- }
+    }
  const decode=jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
  const user=await User.findById(decode._id)
  if(!user){
