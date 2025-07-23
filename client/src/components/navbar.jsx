@@ -5,7 +5,7 @@ import {
   Link,
 } from "react-router-dom";
 import React from "react";
-function NavBar(){
+function NavBar({underline,log}){
     const [isopen,setisopen]=useState(false)
     function open(){
         isopen?setisopen(false):setisopen(true)
@@ -17,7 +17,7 @@ function NavBar(){
                 <img  className="h-10 w-10 mr-3 mb-2" src={logo} alt="EchoPages logo" />
                 <a href="/" className="text-slate-600" >EchoPages</a>
             </div>
-            <Sidepanel isopen={isopen} open={open}/>
+            <Sidepanel isopen={isopen} log={log} open={open} underline={underline}/>
         </nav>
         </>
     )

@@ -159,10 +159,29 @@ const getuser=asynchandler(async(req,res)=>{
     new ApiResponse(200,user,"fetched user")
   )
 })
+const changeProfilePhoto=asynchandler(async(req,res)=>{
+    const profilepic=req.files?.ProfilePic[0].path;
+    if(!profilepic)
+        throw new ApiError(404,"Photo required");
+
+  const profileurl=await uploadImage(profilepic)
+  if(!profileurl)
+    throw new ApiError(500,"Error uploading image");
+    
+    const user=await User.findByIdAndUpdate(req.user._id,
+        {
+            profilePic:profileurl.url
+        }
+    )
+    res.status(200).json(
+        new ApiResponse(200,profileurl.url,"Updated successfully")
+    )
+})
 export {
     registerUser,
     deleteUser,
     loginUser,
     logoutuser,
-    getuser
+    getuser,
+    changeProfilePhoto
 }

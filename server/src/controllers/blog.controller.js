@@ -137,5 +137,14 @@ const getmyblogs=asynchandler(async(req,res)=>{
       new ApiResponse(200,myblogs,"blogs fetched")
    )
 })
+const getblogbyid=asynchandler(async(req,res)=>{
+   const {blogid}=req.params
+   const blog=await Blog.findById(blogid);
+   if(!blog)
+      throw new ApiError(404,"blog not found");
+   res.status(200).json(
+      new ApiResponse(200,blog,"fetched successfully")
+   )
+})
 
-export {Createblog,UpdateBlog,deleteblog,like,comment,deletecomment,getallblogs,getmyblogs}
+export {Createblog,UpdateBlog,deleteblog,like,comment,deletecomment,getallblogs,getmyblogs,getblogbyid}

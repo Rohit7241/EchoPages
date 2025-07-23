@@ -30,7 +30,7 @@ export default function LoginPage(){
   }
     return(
         <>
-        <NavBar/>
+        <NavBar log="false"/>
         <div className={`h-screen w-screen flex justify-center items-center`}   style={{backgroundImage: `url(${image})`}}  >
             <div className="max-h-md rounded-3xl max-w-md h-110 p-8 bg-white/50 flex-col flex  items-center w-full">
               <h1 className="text-4xl font-semibold text-gray-600">Login</h1>

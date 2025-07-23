@@ -1,11 +1,21 @@
 import { useState } from "react";
 import {
   Link,
+  useNavigate,
 } from "react-router-dom";
+import axios from "axios";
 import React from "react";
-
-export default function Sidepanel({isopen,open}){
-    
+export default function Sidepanel({isopen,open,underline,log}){
+    const navigate=useNavigate()
+    const logoutuser=async()=>{
+        try {
+             const res=await axios.post("http://localhost:8000/api/v1/users/logout",{},
+         {withCredentials:true})
+            navigate("/login")
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <>
         <button onClick={()=>open()}
@@ -15,10 +25,10 @@ export default function Sidepanel({isopen,open}){
         {isopen&&
         <div className={`fixed pt-15 top-0 z-50 bg-white/50 backdrop-invert backdrop-opacity-10 w-70 h-screen rounded-l right-0`}>
         <div className="ml-5 mt-5 flex font-semibold text-slate-600 flex-col">
-            <Link to="/home" className="hover:text-red-300">Home</Link>  
-            <Link to="/myprofile" className="mt-2 hover:text-red-300">My Profile</Link>  
-            <Link to="/createblog" className="mt-2 hover:text-red-300">Create Blog</Link>   
-            <Link to="/login" className="mt-2 hover:text-red-300">Login/Logout</Link>  
+            <Link to="/home" className={`hover:text-red-300 ${underline=="home"?"underline":""}`}>Home</Link>  
+            <Link to="/myprofile" className={`mt-2 hover:text-red-300  ${underline=="mypro"?"underline":""}`}>My Profile</Link>  
+            <Link to="/createblog" className={`mt-2 hover:text-red-300  ${underline=="createblog"?"underline":""}`}>Create Blog</Link>   
+            {log=="true"&&<button onClick={logoutuser} className="mt-2 hover:text-red-300">Logout</button>  }
         </div>
         </div>
         }

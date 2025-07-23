@@ -49,7 +49,7 @@ export default function RegisterUser(){
   }
       return(
         <>
-        <NavBar/>
+        <NavBar log="false"/>
         <div className={`h-screen w-screen flex justify-center items-center`}   style={{backgroundImage: `url(${image})`}}  >
             <div className="max-h-md rounded-3xl max-w-md h-auto mt-10 p-5 bg-white/50 flex-col flex  items-center w-full">
               <h1 className="text-4xl font-semibold text-gray-600">Register</h1>

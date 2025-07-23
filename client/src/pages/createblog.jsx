@@ -1,15 +1,29 @@
+import axios from "axios";
 import NavBar from "../components/navbar";
+import { useNavigate } from "react-router-dom";
+import { useState} from "react";
 
 export default function CreateBlog() {
-  const createblogfunc = (event) => {
-    event.preventDefault(); // Fix: Add event as parameter
-    console.log("Blog submitted!");
-    // Add logic to handle blog creation (e.g., form submission)
+  const navigate=useNavigate()
+  const [title,settitle]=useState("")
+  const [content,setcontent]=useState("")
+  const createblogfunc = async(event) => {
+    event.preventDefault(); 
+    try {
+      const res=await axios.post("http://localhost:8000/api/v1/blog/Create",{
+        title:title,
+        content:content
+      },{withCredentials:true})
+      console.log(res)
+      navigate("/myProfile")
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
     <>
-      <NavBar/>
+      <NavBar underline="createblog" log="true"/>
       <div className="mt-15 bg-blue-200 min-h-screen w-full">
         <form onSubmit={createblogfunc}>
           <div className="flex flex-col">
@@ -18,6 +32,7 @@ export default function CreateBlog() {
               className="text-2xl p-3 rounded w-auto m-10 bg-white"
               placeholder="Title"
               name="title"
+              onChange={(e)=>settitle(e.target.value)}
               required
             />
             <textarea
@@ -31,12 +46,13 @@ export default function CreateBlog() {
                 e.target.style.height = `${e.target.scrollHeight}px`;
               }}
               required
+              onChange={(e)=>setcontent(e.target.value)}
             ></textarea>
           </div>
           <button
             type="submit"
-            className="text-xl p-3 rounded w-auto m-10 bg-violet-500 text-white hover:bg-violet-600"
-          >
+            onClick={createblogfunc}
+            className="text-xl p-3 rounded w-auto m-10 bg-violet-500 text-white hover:bg-violet-600">
             Create Blog
           </button>
         </form>
