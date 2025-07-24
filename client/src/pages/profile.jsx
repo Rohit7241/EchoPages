@@ -2,6 +2,7 @@ import NavBar from "../components/navbar";
 import BlogCard from "../components/blogcard";
 import axios from "axios";
 import { useState ,useEffect} from "react";
+import { Link } from "react-router-dom";
 
 export default function ProfilePage({user,underline}) {
     const [username,setusername]=useState("")
@@ -100,7 +101,7 @@ export default function ProfilePage({user,underline}) {
             <p className="mt-3 text-xl text-gray-800">@{username}</p>
             <p className="mt-3 text-xl text-gray-800">{blogData.length} blog contributions</p>
             {user=="true"&&<div className="flex">
-            <button className="h-10 w-auto p-2 mt-5 text-white bg-indigo-400 hover:bg-indigo-500 rounded-xl">Create New Blog</button>
+            <Link to="/createblog" className="h-10 w-auto p-2 mt-5 text-white bg-indigo-400 hover:bg-indigo-500 rounded-xl" >Create New Blog</Link>
              <button className="h-10 ml-10 w-auto p-2 mt-5 bg-rose-200 hover:bg-rose-300 rounded-xl">Delete Account</button>
             </div>}
 

@@ -76,6 +76,14 @@ export default function RegisterUser(){
                 <input  type="file" accept="image/*" className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={handleCover} name="email" id="" />
              
               </form>
+              <input
+                  type="text"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      registeruser(); // Call the same function as the button
+                    }
+                  }}
+                />
                <button className="h-10 text-lg  w-25 rounded-xl mt-10 hover:bg-red-400 items-center bg-red-300" onClick={registeruser}>Register</button>
                <h1 className="mt-3">Already Registered? <Link className="text-blue-900" to="/login">Login</Link></h1>
             </div>

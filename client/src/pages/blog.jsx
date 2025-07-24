@@ -1,7 +1,31 @@
 import NavBar from "../components/navbar"
 import image from "../assets/profileimage.webp"
-export default function BlogPage({title,content}){
-    
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
+import axios from "axios"
+export default function BlogPage(){
+  const location = useLocation();
+  const { id } = location.state || {}; 
+  const [blog,setblog]=useState()
+  const [title,settitle]=useState()
+  const [content,setcontent]=useState()
+    useEffect(()=>{
+      const getblog=async ()=>{
+       try {
+             const res=await axios.get(`http://localhost:8000/api/v1/blog/${id}/getblog`,
+                    {withCredentials:true}
+                )
+                setblog(res.data.data)
+                settitle(res.data.data.title);
+                setcontent(res.data.data.content);
+       } catch (error) {
+        console.log(error)
+       }
+      }
+      getblog();
+     
+    },[])
+   
     return (
         <>
         <div className="min-h-screen h-auto w-full bg-sky-200">
