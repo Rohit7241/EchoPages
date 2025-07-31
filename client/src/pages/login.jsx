@@ -5,7 +5,7 @@ import axios from "axios"
 import {useNavigate,Link} from "react-router-dom"
 
 export default function LoginPage(){
-  
+  const [showpassword,setshow]=useState(false);  
   const navigate = useNavigate();
   const [username,setusername]=useState("")
   const [wrong,setwrong]=useState(false);
@@ -26,8 +26,8 @@ export default function LoginPage(){
      setwrong(true)
      seterror(match[1])
     }
-    
-  }
+    }
+
     return(
         <>
         <NavBar log="false"/>
@@ -42,7 +42,8 @@ export default function LoginPage(){
                 <h1 className="mt-3 font-semibold text-gray-600 text-lg">Email :</h1>
                 <input placeholder="example@gmail.com" className=" rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setemail(e.target.value)} name="email" id="" value={email}/>
                 <h1 className="mt-3 font-semibold text-gray-600 text-lg">Password :</h1>
-                <input type="password" className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setpass(e.target.value)} name="password" id="" value={password}/>
+                <input type={`${showpassword?"text":"password"}`} className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setpass(e.target.value)} name="password" id="" value={password}/>
+                 <button type="button"  onClick={()=>{setshow(!showpassword)}} className="bg-gray-300 mt-2 px-3 py-2 rounded text-sm">{showpassword ? "Hide" : "Show"} Password</button>
               </form>
                <button className="h-10 text-lg  w-25 rounded-xl mt-10 hover:bg-red-400 items-center bg-red-300" onClick={loginuser}>Submit</button>
                  <h1 className="mt-5">New User? <Link className="text-blue-900" to="/register">Register</Link></h1>

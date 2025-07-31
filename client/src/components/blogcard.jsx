@@ -2,7 +2,7 @@ import React from "react";
 import { Link} from "react-router-dom";
 
 export default function BlogCard({title,content,user,id}){
-  console.log(id)
+
   const deletefunc=function(){
    event.preventDefault();
    console.log("deleted")

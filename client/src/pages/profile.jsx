@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 
 export default function ProfilePage({user,underline}) {
     const [username,setusername]=useState("")
-    const [loader,setloader]=useState(false)
-    const [name,setname]=useState("")
-    const [blogData, setBlogData] = useState([]);
+    const [name,setname]=useState("")    
     const[newpro,setnewpro]=useState("")
     const [Profile,setProfile]=useState(undefined)
     const [Cover,setcover]=useState(undefined)
     const [show,setshow]=useState(false)
+     const [loader,setloader]=useState(false)
+     const [blogData, setBlogData] = useState([]);
     useEffect(() => {
       const getuser = async () => {
         try {

@@ -159,6 +159,15 @@ const getuser=asynchandler(async(req,res)=>{
     new ApiResponse(200,user,"fetched user")
   )
 })
+const getuserbyid=asynchandler(async(req,res)=>{
+    const {userid}=req.params;
+    const user=await User.findById(userid);
+   if(!user)
+    throw new ApiError(404,"User not Found")
+  res.status(200).json(
+    new ApiResponse(200,user,"fetched user")
+  )
+})
 const changeProfilePhoto=asynchandler(async(req,res)=>{
     const profilepic=req.files?.ProfilePic[0].path;
     if(!profilepic)
@@ -183,5 +192,6 @@ export {
     loginUser,
     logoutuser,
     getuser,
-    changeProfilePhoto
+    changeProfilePhoto,
+    getuserbyid
 }
