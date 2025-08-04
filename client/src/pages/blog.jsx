@@ -1,10 +1,12 @@
 import NavBar from "../components/navbar"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import axios from "axios"
 import profile from "../assets/image.avif"
 import likeimg from "../assets/like.png"
 import unlike from "../assets/unlike.png"
+import comment from "../assets/comment.png"
+import Comment from "../components/comment"
 export default function BlogPage(){
   const location = useLocation();
   const { id } = location.state || {}; 
@@ -16,8 +18,13 @@ export default function BlogPage(){
   const [name,setname]=useState("Deleted user")    
   const[date,setdate]=useState("")
   const [Profile,setProfile]=useState(profile)
+  const [comments,setcomment]=useState([])
   const [liked,setliked]=useState(false)
+  const [opencomment,setopencomment]=useState(false)
   const [likes,setlikes]=useState(0)
+  const [newcomment,setnewcomment]=useState("")
+
+  const contentref=useRef(null)
 
     useEffect(()=>{
       let useres;
@@ -28,11 +35,13 @@ export default function BlogPage(){
           console.log(error)
         }
       }
+      getuser();
       const getblog=async ()=>{
        try {
              const res=await axios.get(`http://localhost:8000/api/v1/blog/${id}/getblog`,
                     {withCredentials:true}
                 )
+                setcomment(res.data.data.comments)
                 setblog(res.data.data)
                 settitle(res.data.data.title);
                 setcontent(res.data.data.content);
@@ -57,27 +66,25 @@ export default function BlogPage(){
           } catch (error) {
             console.log(error)
           }
-      
        } catch (error) {
         console.log(error)
        }
       }
       
       getblog();
-      getuser();
-   
     },[])
 
    const like=async()=>{
     try {
       const res=await axios.post(`http://localhost:8000/api/v1/blog/${id}/like`,
         {},{withCredentials:true})
-      const likeres=await axios.get(`http://localhost:8000/api/v1/blog/${id}/likes`)
-        console.log(res)
+      const likeres=await axios.get(`http://localhost:8000/api/v1/blog/${id}/getblog`,{withCredentials:true})
+        setlikes(likeres.data.data.likes.length);
     } catch (error) {
       console.log(error)
     }
    }
+   
     return (
         <>
         <div className="min-h-screen h-auto w-full bg-sky-200">
@@ -94,12 +101,36 @@ export default function BlogPage(){
           <h1 className="text-4xl font-bold">{title}</h1>
         </div>
          <div className="bg-white shadow-xl mx-auto rounded-3xl p-10 m-4" >
-            <div className="w-7 flex" onClick={()=>{setliked(!liked);like()}}>
+           <div className="flex">
+             <div className="w-7 flex cursor-pointer" onClick={()=>{setliked(!liked);like()}}>
               {liked&&<img src={likeimg} alt="" />}
               {!liked&&<img src={unlike} alt=""/>}
               <p className="ml-2 mt-2">{likes}</p>
             </div>
-           <p className="mt-10 text-xl text-gray-800 leading-relaxed whitespace-pre-line">{content}</p>
+            <div className="w-7 flex ml-7 cursor-pointer" onClick={()=>{contentref.current?.scrollIntoView({ behavior: "smooth" })}}>
+             <img src={comment} alt="" />
+            </div>
+           </div>
+            <p className="mt-10 text-xl text-gray-800 leading-relaxed whitespace-pre-line">{content}</p>
+          </div>
+         <div ref={contentref} className="bg-white shadow-xl rounded-3xl p-5 m-4" >
+          <h1 className="text-2xl mb-3">Comment Section</h1>
+          {!opencomment&&<button className="p-2 bg-green-300 rounded-md" onClick={()=>{setopencomment(!opencomment)}}>Create Comment</button>}
+           {opencomment && (
+              <div className="bg-violet-300 flex flex-col p-3 mb-4 rounded-lg">
+                <input
+                  type="text"
+                  placeholder="Write a comment..."
+                  className="p-2 rounded-md mb-2"
+                  onChange={(event)=>setnewcomment(event.target.value)}
+                  value={newcomment}
+                />
+                <button className="bg-violet-500 text-white p-2 rounded-md" onClick={createcomment()}>Submit</button>
+              </div>
+            )}
+           {comments.map(()=>{
+            return <Comment content="hello guys" user="rohit"/>
+           })}
         </div>
        </div>
         </div>

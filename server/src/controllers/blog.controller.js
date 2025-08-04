@@ -146,5 +146,4 @@ const getblogbyid=asynchandler(async(req,res)=>{
       new ApiResponse(200,blog,"fetched successfully")
    )
 })
-
 export {Createblog,UpdateBlog,deleteblog,like,comment,deletecomment,getallblogs,getmyblogs,getblogbyid}

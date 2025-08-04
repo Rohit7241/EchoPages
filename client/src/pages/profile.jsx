@@ -42,7 +42,7 @@ export default function ProfilePage({user,underline}) {
             })
            
           );
-           console.log(blogresults)
+          console.log(blogresults)
           setBlogData(blogresults)
           setcover(res.coverImage);
           setname(res.name);
