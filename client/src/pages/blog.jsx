@@ -26,14 +26,7 @@ export default function BlogPage(){
 
   const contentref=useRef(null)
   let useres;
-  const getuserbyid=async(id)=>{
-   try {
-          const commentuser=await axios.get(`http://localhost:8000/api/v1/users/${id}/getuser`,{withCredentials:true})
-         console.log(commentuser)
-        } catch (error) {
-          console.log(error)
-        }
-  }
+ 
     useEffect(()=>{
        const getuser=async()=>{
         try {
@@ -141,7 +134,7 @@ export default function BlogPage(){
               </div>
             )}
            {comments.map((cmt)=>{
-            return <Comment content={cmt.content} user={getuserbyid(cmt.author)}/>
+            return <Comment content={cmt.content} user={cmt.author}/>
            })}
         </div>
        </div>
