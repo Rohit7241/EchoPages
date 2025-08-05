@@ -25,10 +25,17 @@ export default function BlogPage(){
   const [newcomment,setnewcomment]=useState("")
 
   const contentref=useRef(null)
-
+  let useres;
+  const getuserbyid=async(id)=>{
+   try {
+          const commentuser=await axios.get(`http://localhost:8000/api/v1/users/${id}/getuser`,{withCredentials:true})
+         console.log(commentuser)
+        } catch (error) {
+          console.log(error)
+        }
+  }
     useEffect(()=>{
-      let useres;
-      const getuser=async()=>{
+       const getuser=async()=>{
         try {
            useres=await axios.get(`http://localhost:8000/api/v1/users/getuser`,{withCredentials:true})
         } catch (error) {
@@ -84,7 +91,12 @@ export default function BlogPage(){
       console.log(error)
     }
    }
-   
+   const createcomment=async()=>{
+    const res=await axios.post(`http://localhost:8000/api/v1/blog/${id}/comment`,
+      {content:newcomment},{withCredentials:true});
+    setopencomment(false);
+    window.location.reload()
+   }
     return (
         <>
         <div className="min-h-screen h-auto w-full bg-sky-200">
@@ -125,11 +137,11 @@ export default function BlogPage(){
                   onChange={(event)=>setnewcomment(event.target.value)}
                   value={newcomment}
                 />
-                <button className="bg-violet-500 text-white p-2 rounded-md" onClick={createcomment()}>Submit</button>
+                <button className="bg-violet-500 text-white p-2 rounded-md" onClick={()=>createcomment()}>Submit</button>
               </div>
             )}
-           {comments.map(()=>{
-            return <Comment content="hello guys" user="rohit"/>
+           {comments.map((cmt)=>{
+            return <Comment content={cmt.content} user={getuserbyid(cmt.author)}/>
            })}
         </div>
        </div>

@@ -33,6 +33,7 @@ export default function ProfilePage({user,underline}) {
                 return {
                   title: res.data.data.title,
                   content: res.data.data.content,
+                  id:res.data.data._id
                 };
                 
               } catch (error) {
@@ -42,7 +43,6 @@ export default function ProfilePage({user,underline}) {
             })
            
           );
-          console.log(blogresults)
           setBlogData(blogresults)
           setcover(res.coverImage);
           setname(res.name);
@@ -108,11 +108,10 @@ export default function ProfilePage({user,underline}) {
           </div>
         </div>
 
-        {/* Blog Section */}
         <div className="flex flex-col mt-10 gap-6 flex items-center px-6 pb-10">
             <h1 className="text-4xl font-semibold">BLOGS</h1>
           {blogData.map((i) => (
-            <BlogCard title={i.title.slice(0,100)} content={`${i.content.slice(0,650)}......`} user={true}/>
+            <BlogCard title={i.title.slice(0,100)} content={`${i.content.slice(0,650)}......`} user={true} id={i.id} />
           ))}
         </div>
       </div>
