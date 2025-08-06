@@ -51,7 +51,7 @@ export default function RegisterUser(){
         <>
         <NavBar log="false"/>
         <div className={`h-screen w-screen flex justify-center items-center`}   style={{backgroundImage: `url(${image})`}}  >
-            <div className="max-h-md rounded-3xl max-w-md h-auto mt-10 p-5 bg-white/50 flex-col flex  items-center w-full">
+            <div className="max-h-md rounded-3xl max-w-md h-auto mt-15 p-5 bg-white/50 flex-col flex  items-center w-full">
               <h1 className="text-4xl font-semibold text-gray-600">Register</h1>
               <form className="mt-5  flex-col  items-center" onSubmit={registeruser}>
               {wrong&&<h1 className="h-auto rounded p-2 bg-white/60 font-semibold text-red-500">** {error} **</h1>}

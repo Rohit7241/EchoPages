@@ -17,7 +17,7 @@ function NavBar({underline,log}){
                 <img  className="h-10 w-10 mr-3 mb-2" src={logo} alt="EchoPages logo" />
                 <a href="/" className="text-slate-600" >EchoPages</a>
             </div>
-            <Sidepanel isopen={isopen} log={log} open={open} underline={underline}/>
+            {log=="true"&&<Sidepanel isopen={isopen} log={log} open={open} underline={underline}/>}
         </nav>
         </>
     )

@@ -7,6 +7,8 @@ import likeimg from "../assets/like.png"
 import unlike from "../assets/unlike.png"
 import comment from "../assets/comment.png"
 import Comment from "../components/comment"
+import { Link } from "react-router-dom";
+
 export default function BlogPage(){
   const location = useLocation();
   const { id } = location.state || {}; 
@@ -23,6 +25,7 @@ export default function BlogPage(){
   const [opencomment,setopencomment]=useState(false)
   const [likes,setlikes]=useState(0)
   const [newcomment,setnewcomment]=useState("")
+  const [usercmt,setusercmt]=useState(true)
 
   const contentref=useRef(null)
   let useres;
@@ -31,6 +34,7 @@ export default function BlogPage(){
        const getuser=async()=>{
         try {
            useres=await axios.get(`http://localhost:8000/api/v1/users/getuser`,{withCredentials:true})
+          setusercmt(useres.data.data._id)
         } catch (error) {
           console.log(error)
         }
@@ -90,17 +94,18 @@ export default function BlogPage(){
     setopencomment(false);
     window.location.reload()
    }
+    
     return (
         <>
         <div className="min-h-screen h-auto w-full bg-sky-200">
-            <NavBar/>
+            <NavBar log="true"/>
        <div className="  p-6 pt-24">
       <div className="h-auto w-auto bg-slate-400 rounded-xl m-5 mx-auto p-5 flex items-center ">
         <div className="h-20 w-20 rounded-full bg-center bg-cover" style={{backgroundImage:`url(${Profile})`}}></div>
-        <div>
+        <Link to="/profile">
             <h1 className="ml-5 text-xl">Author Name: {name.toUpperCase()}</h1>
             <h1 className="ml-5 text-sm">Published : {date}</h1>
-        </div>
+        </Link>
       </div>
          <div className="bg-white shadow-xl mx-auto rounded-3xl p-10 mt-15 " >
           <h1 className="text-4xl font-bold">{title}</h1>
@@ -134,7 +139,7 @@ export default function BlogPage(){
               </div>
             )}
            {comments.map((cmt)=>{
-            return <Comment content={cmt.content} user={cmt.author}/>
+            return <Comment blogid={id} cmtid={cmt._id} content={cmt.content} user={cmt.author} author={usercmt==cmt.author}/>
            })}
         </div>
        </div>
