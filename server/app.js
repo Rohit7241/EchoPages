@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser"
 const app=express();
 
 app.use(cors({
-  origin: "http://localhost:5173", // frontend URL
+  origin: "https://echo-pages2.vercel.app/", // frontend URL
   credentials: true
 }));
 
