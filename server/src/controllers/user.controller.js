@@ -125,7 +125,8 @@ const loginUser=asynchandler(async(req,res)=>{
 
     const options={//to make cookies modifiable only through server not through frontend
         httpOnly:true,
-        secure:false
+        secure:true,
+        sameSite:"None",
     }
  
     return res.status(200)
