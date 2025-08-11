@@ -25,8 +25,6 @@ const generateAccessAndRefreshToken=async function(userid){
         throw new ApiError(500,"Something went wrong in generating tokens",[err]);
     }
 }
-
-
 const registerUser=asynchandler(async(req,res)=>{
     //steps:
     //get user details from frontend
@@ -76,7 +74,7 @@ const registerUser=asynchandler(async(req,res)=>{
     password:hashedPassword,
     username:username.toLowerCase(),
    })
-   const {Accesstoken,refreshtoken}=generateAccessAndRefreshToken(user._id)
+
    const createduser=await User.findById(user._id)
    if(!createduser){
     throw new ApiError(500,"something went wrong")
