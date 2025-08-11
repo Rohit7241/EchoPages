@@ -6,6 +6,7 @@ const app=express();
 
 app.use(cors({
   origin: "https://echo-pages2.vercel.app",
+  origin:"http://localhost:5173/",
   credentials: true
 }));
 

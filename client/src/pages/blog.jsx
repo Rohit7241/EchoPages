@@ -26,15 +26,17 @@ export default function BlogPage(){
   const [likes,setlikes]=useState(0)
   const [newcomment,setnewcomment]=useState("")
   const [usercmt,setusercmt]=useState(true)
+  const [useres,setuserres]=useState(true)
 
   const contentref=useRef(null)
-  let useres;
+
  
     useEffect(()=>{
        const getuser=async()=>{
         try {
-           useres=await axios.get(`https://echopages3.onrender.com/api/v1/users/getuser`,{withCredentials:true})
-          setusercmt(useres.data.data._id)
+           const useres2=await axios.get(`https://echopages3.onrender.com/api/v1/users/getuser`,{withCredentials:true})
+           setuserres(useres2)
+          setusercmt(useres2.data.data._id)
         } catch (error) {
           console.log(error)
         }
