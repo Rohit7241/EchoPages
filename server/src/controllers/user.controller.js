@@ -120,7 +120,7 @@ const loginUser=asynchandler(async(req,res)=>{
     if(!result){
         throw new ApiError(400,"Incorrect Credentials")
     }
-    const {Accesstoken,refreshtoken}=await generateAccessAndRefreshToken(user._id);
+    const {Accesstoken,Refreshtoken}=await generateAccessAndRefreshToken(user._id);
     const loggedinuser=await User.findById(user._id).select("-refreshToken")
 
     const options={//to make cookies modifiable only through server not through frontend
@@ -131,10 +131,10 @@ const loginUser=asynchandler(async(req,res)=>{
  
     return res.status(200)
     .cookie("AccessToken",Accesstoken,options)
-    .cookie("RefreshToken",refreshtoken,options)
+    .cookie("RefreshToken",Refreshtoken,options)
     .json(
     new ApiResponse(200,{
-        user:loggedinuser,Accesstoken,refreshtoken
+        user:loggedinuser,Accesstoken,Refreshtoken
     },"user logged in successfully")
  )
 
