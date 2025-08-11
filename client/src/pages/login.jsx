@@ -12,21 +12,47 @@ export default function LoginPage(){
   const [error,seterror]=useState("");
   const [email,setemail]=useState("")
   const [password,setpass]=useState("")
-  const loginuser=async()=>{
-    try {
-       const res=await axios.post("https://echopages3.onrender.com/api/v1/users/login", {
-      username: username,
-      email: email,
-      password: password
-    },{withCredentials:true})
-    navigate("/home")
-    } catch (error) {
-     const html = error.response.data;
-     const match = html.match(/<pre>Error: (.*?)<br>/);
-     setwrong(true)
-     seterror(match[1])
+  const loginuser = async () => {
+  try {
+    const res = await axios.post(
+      "https://echopages3.onrender.com/api/v1/users/login",
+      {
+        username,
+        email,
+        password
+      },
+      { withCredentials: true }
+    );
+
+    console.log("Login success:", res.data);
+    navigate("/home");
+
+  } catch (error) {
+    console.error("Login failed:", error);
+
+    if (error.response && error.response.data) {
+      try {
+        const html = error.response.data;
+        const match = html.match(/<pre>Error: (.*?)<br>/);
+        if (match && match[1]) {
+          setwrong(true);
+          seterror(match[1]);
+        } else {
+          setwrong(true);
+          seterror("Unknown server error");
+        }
+      } catch (parseErr) {
+        setwrong(true);
+        seterror("Error parsing server response");
+      }
+    } else {
+      // No response means network or CORS issue
+      setwrong(true);
+      seterror("Network error — server unreachable");
     }
-    }
+  }
+};
+
     return(
         <>
         <NavBar log="false"/>

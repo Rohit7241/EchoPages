@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser"
 const app=express();
 
 app.use(cors({
-  origin: "*", // frontend URL
+  origin: "*", // frontend URL//all allowed
   credentials: true
 }));
 
