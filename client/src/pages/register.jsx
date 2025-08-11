@@ -25,7 +25,7 @@ export default function RegisterUser(){
             formData.append("password", password);
             formData.append("ProfilePic", Profile);
             formData.append("coverImage", Cover);
-       const res=await axios.post("http://localhost:8000/api/v1/users/register",formData)
+       const res=await axios.post("https://echopages3.onrender.com/api/v1/users/register",formData)
     navigate("/login")
     } catch (error) {
      const html = error.response.data;

@@ -10,7 +10,7 @@ export default function Sidepanel({isopen,open,underline,log}){
     const navigate=useNavigate()
     const logoutuser=async()=>{
         try {
-             const res=await axios.post("http://localhost:8000/api/v1/users/logout",{},
+             const res=await axios.post("https://echopages3.onrender.com/api/v1/users/logout",{},
          {withCredentials:true})
             navigate("/login")
         } catch (error) {

@@ -6,14 +6,14 @@ export default function Comment({blogid,cmtid,content,user,author}){
   const [username,setuser]=useState("")
   const [confdel,setconfdel]=useState(false);
   const deletecomment=async()=>{
-    const res=await axios.post(`http://localhost:8000/api/v1/blog/${blogid}/comment/${cmtid}`,{},{withCredentials:true})
+    const res=await axios.post(`https://echopages3.onrender.com/api/v1/blog/${blogid}/comment/${cmtid}`,{},{withCredentials:true})
     console.log(res);
     setconfdel(false);
     window.location.reload();
   }
    const getuserbyid=async(user)=>{
    try {
-          const commentuser=await axios.get(`http://localhost:8000/api/v1/users/${user}/getuser`,{withCredentials:true})
+          const commentuser=await axios.get(`https://echopages3.onrender.com/api/v1/users/${user}/getuser`,{withCredentials:true})
           setuser(commentuser.data.data.username);
         } catch (error) {
           console.log(error)

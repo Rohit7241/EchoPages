@@ -7,7 +7,7 @@ export default function Home(){
     useEffect(()=>{
             const getallblogs=async()=>{
             try {
-                const res=await axios.get("http://localhost:8000/api/v1/blog/getallblogs",
+                const res=await axios.get("https://echopages3.onrender.com/api/v1/blog/getallblogs",
                     {withCredentials:true}
                 )
                 setblogs(res.data.data.reverse())

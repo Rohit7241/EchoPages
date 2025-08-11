@@ -33,7 +33,7 @@ export default function BlogPage(){
     useEffect(()=>{
        const getuser=async()=>{
         try {
-           useres=await axios.get(`http://localhost:8000/api/v1/users/getuser`,{withCredentials:true})
+           useres=await axios.get(`https://echopages3.onrender.com/api/v1/users/getuser`,{withCredentials:true})
           setusercmt(useres.data.data._id)
         } catch (error) {
           console.log(error)
@@ -42,7 +42,7 @@ export default function BlogPage(){
       getuser();
       const getblog=async ()=>{
        try {
-             const res=await axios.get(`http://localhost:8000/api/v1/blog/${id}/getblog`,
+             const res=await axios.get(`https://echopages3.onrender.com/api/v1/blog/${id}/getblog`,
                     {withCredentials:true}
                 )
                 setcomment(res.data.data.comments)
@@ -59,7 +59,7 @@ export default function BlogPage(){
                   }
                 });
           try {
-              const res2=await axios.get(`http://localhost:8000/api/v1/users/${res.data.data.author}/getuser`,
+              const res2=await axios.get(`https://echopages3.onrender.com/api/v1/users/${res.data.data.author}/getuser`,
                 {withCredentials:true}
               )  
               let res3=res2.data.data
@@ -80,16 +80,16 @@ export default function BlogPage(){
 
    const like=async()=>{
     try {
-      const res=await axios.post(`http://localhost:8000/api/v1/blog/${id}/like`,
+      const res=await axios.post(`https://echopages3.onrender.com/api/v1/blog/${id}/like`,
         {},{withCredentials:true})
-      const likeres=await axios.get(`http://localhost:8000/api/v1/blog/${id}/getblog`,{withCredentials:true})
+      const likeres=await axios.get(`https://echopages3.onrender.com/api/v1/blog/${id}/getblog`,{withCredentials:true})
         setlikes(likeres.data.data.likes.length);
     } catch (error) {
       console.log(error)
     }
    }
    const createcomment=async()=>{
-    const res=await axios.post(`http://localhost:8000/api/v1/blog/${id}/comment`,
+    const res=await axios.post(`https://echopages3.onrender.com/api/v1/blog/${id}/comment`,
       {content:newcomment},{withCredentials:true});
     setopencomment(false);
     window.location.reload()

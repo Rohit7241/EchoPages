@@ -14,7 +14,7 @@ export default function LoginPage(){
   const [password,setpass]=useState("")
   const loginuser=async()=>{
     try {
-       const res=await axios.post("http://localhost:8000/api/v1/users/login", {
+       const res=await axios.post("https://echopages3.onrender.com/api/v1/users/login", {
       username: username,
       email: email,
       password: password

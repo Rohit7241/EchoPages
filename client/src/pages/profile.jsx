@@ -16,7 +16,7 @@ export default function ProfilePage({user,underline}) {
     useEffect(() => {
       const getuser = async () => {
         try {
-          const data = await axios.get("http://localhost:8000/api/v1/users/getuser", {
+          const data = await axios.get("https://echopages3.onrender.com/api/v1/users/getuser", {
             withCredentials: true
           })
           let res = data.data.data;
@@ -26,7 +26,7 @@ export default function ProfilePage({user,underline}) {
               try {
                 setloader(true)
                 const res = await axios.get(
-                  `http://localhost:8000/api/v1/blog/${b}/getblog`,
+                  `https://echopages3.onrender.com/api/v1/blog/${b}/getblog`,
                   { withCredentials: true }
                 );
                 setloader(false)

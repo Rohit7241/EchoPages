@@ -10,7 +10,7 @@ export default function CreateBlog() {
   const createblogfunc = async(event) => {
     event.preventDefault(); 
     try {
-      const res=await axios.post("http://localhost:8000/api/v1/blog/Create",{
+      const res=await axios.post("https://echopages3.onrender.com/api/v1/blog/Create",{
         title:title,
         content:content
       },{withCredentials:true})
