@@ -23,7 +23,6 @@ export default function LoginPage(){
       },
       { withCredentials: true }
     );
-
     console.log("Login success:", res.data);
     navigate("/home");
 

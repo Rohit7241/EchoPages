@@ -31,54 +31,52 @@ export default function BlogPage(){
   const contentref=useRef(null)
 
  
-    useEffect(()=>{
-       const getuser=async()=>{
-        try {
-           const useres2=await axios.get(`https://echopages3.onrender.com/api/v1/users/getuser`,{withCredentials:true})
-           setuserres(useres2)
-          setusercmt(useres2.data.data._id)
-        } catch (error) {
-          console.log(error)
-        }
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      // 1️⃣ Get current logged-in user
+      const userRes = await axios.get(
+        "https://echopages3.onrender.com/api/v1/users/getuser",
+        { withCredentials: true }
+      );
+      setuserres(userRes);
+      setusercmt(userRes.data.data._id);
+
+      // 2️⃣ Get the blog
+      const blogRes = await axios.get(
+        `https://echopages3.onrender.com/api/v1/blog/${id}/getblog`,
+        { withCredentials: true }
+      );
+
+      setcomment(blogRes.data.data.comments);
+      setblog(blogRes.data.data);
+      settitle(blogRes.data.data.title);
+      setcontent(blogRes.data.data.content);
+      setdate(blogRes.data.data.createdAt.slice(0, 10));
+      setlikes(blogRes.data.data.likes.length);
+
+      // Check if current user liked the blog
+      if (blogRes.data.data.likes.includes(userRes.data.data._id)) {
+        setliked(true);
       }
-      getuser();
-      const getblog=async ()=>{
-       try {
-             const res=await axios.get(`https://echopages3.onrender.com/api/v1/blog/${id}/getblog`,
-                    {withCredentials:true}
-                )
-                setcomment(res.data.data.comments)
-                setblog(res.data.data)
-                settitle(res.data.data.title);
-                setcontent(res.data.data.content);
-                 setdate(
-                res.data.data.createdAt.slice(0,10)
-                )
-                setlikes(res.data.data.likes.length)
-                res.data.data.likes.forEach(like => {
-                  if(like==useres.data.data._id){
-                    setliked(true)
-                  }
-                });
-          try {
-              const res2=await axios.get(`https://echopages3.onrender.com/api/v1/users/${res.data.data.author}/getuser`,
-                {withCredentials:true}
-              )  
-              let res3=res2.data.data
-              setname(res3.name);
-              setusername(res3.username);
-              setProfile(res3.profilePic);
-          
-          } catch (error) {
-            console.log(error)
-          }
-       } catch (error) {
-        console.log(error)
-       }
-      }
-      
-      getblog();
-    },[])
+
+      // 3️⃣ Get author details
+      const authorRes = await axios.get(
+        `https://echopages3.onrender.com/api/v1/users/${blogRes.data.data.author}/getuser`,
+        { withCredentials: true }
+      );
+      const authorData = authorRes.data.data;
+      setname(authorData.name);
+      setusername(authorData.username);
+      setProfile(authorData.profilePic);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchData();
+}, [id]);
 
    const like=async()=>{
     try {
