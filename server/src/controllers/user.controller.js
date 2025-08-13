@@ -125,7 +125,7 @@ const loginUser=asynchandler(async(req,res)=>{
 
     const options={//to make cookies modifiable only through server not through frontend
         httpOnly:true,
-        secure:isProduction,
+        secure:process.env.NODE_ENV === "production",
         sameSite:"None",
     }
  
