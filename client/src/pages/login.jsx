@@ -112,7 +112,7 @@ export default function LoginPage(){
     </form>
     <button
         className="h-10 text-lg w-full rounded-xl mt-4 hover:bg-red-400 bg-red-300"
-        onClick={()=>loginuser}
+        onClick={loginuser}
       >
         Submit
       </button>
