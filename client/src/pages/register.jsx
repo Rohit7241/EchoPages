@@ -49,45 +49,117 @@ export default function RegisterUser(){
   }
       return(
         <>
-        <NavBar log="false"/>
-        <div className={`h-screen w-screen flex justify-center items-center`}   style={{backgroundImage: `url(${image})`}}  >
-            <div className="max-h-md rounded-3xl max-w-md h-auto mt-15 p-5 bg-white/50 flex-col flex  items-center w-full">
-              <h1 className="text-4xl font-semibold text-gray-600">Register</h1>
-              <form className="mt-5  flex-col  items-center" onSubmit={registeruser}>
-              {wrong&&<h1 className="h-auto rounded p-2 bg-white/60 font-semibold text-red-500">** {error} **</h1>}
+       <NavBar log="false" />
+<div
+  className="min-h-screen flex justify-center items-center px-4 pt-15 bg-cover bg-center"
+  style={{ backgroundImage: `url(${image})` }}
+>
+  <div className="w-full max-w-md p-6 sm:p-8 rounded-3xl bg-white/50 flex flex-col items-center">
+    <h1 className="text-3xl sm:text-4xl font-semibold text-gray-600">Register</h1>
 
-                <h1 className="font-semibold text-gray-600 text-lg">Full Name:</h1>
-                <input  className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setname(e.target.value)} name="fullname" id=""value={name}/>
+    <form className="mt-5 w-full space-y-4" onSubmit={registeruser}>
+      {wrong && (
+        <h1 className="rounded p-2 bg-white/60 font-semibold text-red-500 text-center">
+          ** {error} **
+        </h1>
+      )}
 
-                <h1 className="font-semibold text-gray-600 text-lg">UserName</h1>
-                <input  className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" placeholder="Unique Username"  onChange={(e)=>setusername(e.target.value)} name="username" id=""value={username}/>
-                 
-                <h1 className="mt-3 font-semibold text-gray-600 text-lg">Email :</h1>
-                <input placeholder="example@gmail.com" className=" rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setemail(e.target.value)} name="email" id="" value={email}/>
+      <div>
+        <label className="font-semibold text-gray-600 text-lg">Full Name:</label>
+        <input
+          className="w-full rounded-xl text-gray-700 text-lg bg-white pt-1 pl-5 h-10"
+          onChange={(e) => setname(e.target.value)}
+          value={name}
+          name="fullname"
+        />
+      </div>
 
-                <h1 className="mt-3 font-semibold text-gray-600 text-lg">Password :</h1>
-                <input autoComplete="off" type={showpassword?"text":"password"} className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setpass(e.target.value)} name="password" id="" value={password}/>
-                <button type="button"  onClick={()=>{setshow(!showpassword)}} className="bg-gray-300 mt-2 px-3 py-2 rounded text-sm">{showpassword ? "Hide" : "Show"} Password</button>
+      <div>
+        <label className="font-semibold text-gray-600 text-lg">Username:</label>
+        <input
+          className="w-full rounded-xl text-gray-700 text-lg bg-white pt-1 pl-5 h-10"
+          placeholder="Unique Username"
+          onChange={(e) => setusername(e.target.value)}
+          value={username}
+          name="username"
+        />
+      </div>
 
-                <h1 className="mt-3 font-semibold text-gray-600 text-lg">Profile Photo :</h1>
-                <input  type="file" accept="image/*" className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={handleProfile} name="email" id="" />
+      <div>
+        <label className="font-semibold text-gray-600 text-lg">Email:</label>
+        <input
+          placeholder="example@gmail.com"
+          className="w-full rounded-xl text-gray-700 text-lg bg-white pt-1 pl-5 h-10"
+          onChange={(e) => setemail(e.target.value)}
+          value={email}
+          name="email"
+        />
+      </div>
 
-                <h1 className="mt-3 font-semibold text-gray-600 text-lg">Cover Photo :</h1>
-                <input  type="file" accept="image/*" className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={handleCover} name="email" id="" />
-             
-              </form>
-              <input
-                  type="text"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      registeruser(); // Call the same function as the button
-                    }
-                  }}
-                />
-               <button className="h-10 text-lg  w-25 rounded-xl mt-10 hover:bg-red-400 items-center bg-red-300" onClick={registeruser}>Register</button>
-               <h1 className="mt-3">Already Registered? <Link className="text-blue-900" to="/login">Login</Link></h1>
-            </div>
-        </div>
+      <div>
+        <label className="font-semibold text-gray-600 text-lg">Password:</label>
+        <input
+          autoComplete="off"
+          type={showpassword ? "text" : "password"}
+          className="w-full rounded-xl text-gray-700 text-lg bg-white pt-1 pl-5 h-10"
+          onChange={(e) => setpass(e.target.value)}
+          value={password}
+          name="password"
+        />
+        <button
+          type="button"
+          onClick={() => setshow(!showpassword)}
+          className="bg-gray-300 mt-2 px-3 py-2 rounded text-sm"
+        >
+          {showpassword ? "Hide" : "Show"} Password
+        </button>
+      </div>
+
+      <div>
+        <label className="font-semibold text-gray-600 text-lg">Profile Photo:</label>
+        <input
+          type="file"
+          accept="image/*"
+          className="w-full rounded-xl text-gray-700 text-lg bg-white pt-1 pl-5 h-10"
+          onChange={handleProfile}
+        />
+      </div>
+
+      <div>
+        <label className="font-semibold text-gray-600 text-lg">Cover Photo:</label>
+        <input
+          type="file"
+          accept="image/*"
+          className="w-full rounded-xl text-gray-700 text-lg bg-white pt-1 pl-5 h-10"
+          onChange={handleCover}
+        />
+      </div>
+
+      <input
+        type="text"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") registeruser();
+        }}
+        className="hidden"
+      />
+
+      <button
+        type="submit"
+        className="w-full sm:w-auto h-10 px-6 rounded-xl mt-6 bg-red-300 hover:bg-red-400"
+      >
+        Register
+      </button>
+    </form>
+
+    <h1 className="mt-3">
+      Already Registered?{" "}
+      <Link className="text-blue-900" to="/login">
+        Login
+      </Link>
+    </h1>
+  </div>
+</div>
+
         </>
         
     )

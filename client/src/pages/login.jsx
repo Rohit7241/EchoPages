@@ -54,24 +54,80 @@ export default function LoginPage(){
 
     return(
         <>
-        <NavBar log="false"/>
-        <div className={`h-screen w-screen flex justify-center items-center`}   style={{backgroundImage: `url(${image})`}}  >
-            <div className="max-h-md rounded-3xl max-w-md h-auto p-8 bg-white/50 flex-col flex  items-center w-full">
-              <h1 className="text-4xl font-semibold text-gray-600">Login</h1>
-              <form className="mt-5  flex-col  items-center" onSubmit={loginuser}>
-              {wrong&&<h1 className="h-auto rounded p-2 bg-white/60 font-semibold text-red-500">** {error} **</h1>}
-                <h1 className="font-semibold text-gray-600 text-lg">UserName :</h1>
-                <input  className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setusername(e.target.value)} name="username" id=""value={username}/>
-                <h1 className="mt-3 font-semibold text-gray-600 text-lg">Email :</h1>
-                <input placeholder="example@gmail.com" className=" rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setemail(e.target.value)} name="email" id="" value={email}/>
-                <h1 className="mt-3 font-semibold text-gray-600 text-lg">Password :</h1>
-                <input type={`${showpassword?"text":"password"}`} className="rounded-xl flex text-gray-700 text-lg resize-none bg-white pt-1 pl-5 h-10 w-100" onChange={(e)=>setpass(e.target.value)} name="password" id="" value={password}/>
-                 <button type="button"  onClick={()=>{setshow(!showpassword)}} className="bg-gray-300 mt-2 px-3 py-2 rounded text-sm">{showpassword ? "Hide" : "Show"} Password</button>
-              </form>
-               <button className="h-10 text-lg  w-25 rounded-xl mt-10 hover:bg-red-400 items-center bg-red-300" onClick={loginuser}>Submit</button>
-                 <h1 className="mt-5 text-xl">New User? <Link className="text-blue-900" to="/register">Register</Link></h1>
-            </div>
-        </div>
+        <NavBar log="false" />
+<div
+  className="min-h-screen w-screen flex justify-center items-center bg-cover bg-center"
+  style={{ backgroundImage: `url(${image})` }}
+>
+  <div className="rounded-3xl w-[90%] max-w-md p-6 sm:p-8 bg-white/50 flex flex-col items-center">
+    <h1 className="text-3xl sm:text-4xl font-semibold text-gray-600">Login</h1>
+
+    <form
+      className="mt-5 flex flex-col gap-4 w-full"
+      onSubmit={loginuser}
+    >
+      {wrong && (
+        <h1 className="rounded p-2 bg-white/60 font-semibold text-red-500 text-center">
+          ** {error} **
+        </h1>
+      )}
+
+      <div>
+        <label className="font-semibold text-gray-600 text-lg">Username :</label>
+        <input
+          className="rounded-xl text-gray-700 text-lg bg-white pt-1 pl-5 h-10 w-full"
+          onChange={(e) => setusername(e.target.value)}
+          name="username"
+          value={username}
+        />
+      </div>
+
+      <div>
+        <label className="font-semibold text-gray-600 text-lg">Email :</label>
+        <input
+          placeholder="example@gmail.com"
+          className="rounded-xl text-gray-700 text-lg bg-white pt-1 pl-5 h-10 w-full"
+          onChange={(e) => setemail(e.target.value)}
+          name="email"
+          value={email}
+        />
+      </div>
+
+      <div>
+        <label className="font-semibold text-gray-600 text-lg">Password :</label>
+        <input
+          type={showpassword ? "text" : "password"}
+          className="rounded-xl text-gray-700 text-lg bg-white pt-1 pl-5 h-10 w-full"
+          onChange={(e) => setpass(e.target.value)}
+          name="password"
+          value={password}
+        />
+        <button
+          type="button"
+          onClick={() => setshow(!showpassword)}
+          className="bg-gray-300 mt-2 px-3 py-2 rounded text-sm"
+        >
+          {showpassword ? "Hide" : "Show"} Password
+        </button>
+      </div>
+
+      <button
+        className="h-10 text-lg w-full rounded-xl mt-4 hover:bg-red-400 bg-red-300"
+        onClick={loginuser}
+      >
+        Submit
+      </button>
+    </form>
+
+    <h1 className="mt-5 text-base sm:text-xl">
+      New User?{" "}
+      <Link className="text-blue-900" to="/register">
+        Register
+      </Link>
+    </h1>
+  </div>
+</div>
+
         </>
         
     )
