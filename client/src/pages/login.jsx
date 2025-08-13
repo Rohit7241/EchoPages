@@ -12,7 +12,7 @@ export default function LoginPage(){
   const [error,seterror]=useState("");
   const [email,setemail]=useState("")
   const [password,setpass]=useState("")
-  const loginuser = async () => {
+  const loginuser = async (e) => {
   try {
     const res = await axios.post(
       "https://echopages3.onrender.com/api/v1/users/login",
@@ -64,7 +64,6 @@ export default function LoginPage(){
 
     <form
       className="mt-5 flex flex-col gap-4 w-full"
-      onSubmit={loginuser}
     >
       {wrong && (
         <h1 className="rounded p-2 bg-white/60 font-semibold text-red-500 text-center">
