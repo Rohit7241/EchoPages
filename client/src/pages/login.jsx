@@ -109,15 +109,13 @@ export default function LoginPage(){
           {showpassword ? "Hide" : "Show"} Password
         </button>
       </div>
-
-      <button
+    </form>
+    <button
         className="h-10 text-lg w-full rounded-xl mt-4 hover:bg-red-400 bg-red-300"
-        onClick={loginuser}
+        onClick={()=>loginuser}
       >
         Submit
       </button>
-    </form>
-
     <h1 className="mt-5 text-base sm:text-xl">
       New User?{" "}
       <Link className="text-blue-900" to="/register">

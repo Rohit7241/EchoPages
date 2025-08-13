@@ -16,7 +16,8 @@ export default function RegisterUser(){
   const [password,setpass]=useState("")
   const [Profile,setProfile]=useState(undefined)
   const [Cover,setcover]=useState(undefined)
-  const registeruser=async()=>{
+  const registeruser=async(e)=>{
+    e.preventDefault()
     try {
           const formData = new FormData();
             formData.append("name", name);
