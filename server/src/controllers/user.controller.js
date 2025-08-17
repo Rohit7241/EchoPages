@@ -85,9 +85,8 @@ const registerUser=asynchandler(async(req,res)=>{
    )
 })
 const deleteUser=asynchandler(async(req,res)=>{
-    console.log(req.body);
-  const {username,password}=req.body
-  const user = await User.findOne({ username}).select('+password')
+  const {password}=req.body
+  const user = await User.findOnebyId(req.user._id).select('+password')
   if(!user){
     throw new ApiError(401,"User does not exist")
   }

@@ -2,17 +2,22 @@ import NavBar from "../components/navbar";
 import BlogCard from "../components/blogcard";
 import axios from "axios";
 import { useState ,useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ProfilePage({user,underline}) {
     const [username,setusername]=useState("")
+    const navigate=useNavigate();
     const [name,setname]=useState("")    
     const[newpro,setnewpro]=useState("")
     const [Profile,setProfile]=useState(undefined)
     const [Cover,setcover]=useState(undefined)
     const [show,setshow]=useState(false)
      const [loader,setloader]=useState(false)
+     const [confirmdelete,setconfirmdelete]=useState(false)
      const [blogData, setBlogData] = useState([]);
+     const [password, setpassword] = useState([]);
+     const [wrong, setwrong] = useState(false);
+     const [error, seterror] = useState("");
     useEffect(() => {
       const getuser = async () => {
         try {
@@ -38,7 +43,7 @@ export default function ProfilePage({user,underline}) {
                 
               } catch (error) {
                 console.log(error);
-                return null; // handle individual request failure
+                return null;
               }
             })
            
@@ -62,7 +67,7 @@ export default function ProfilePage({user,underline}) {
        try {
          const formData = new FormData();
          formData.append("ProfilePic",newpro);
-        const res=await axios.post("http://localhost:8000/api/v1/users/updateProfile",
+        const res=await axios.post("https://echopages3.onrender.com/api/v1/users/updateProfile",
          formData,
          {withCredentials:true}
         )
@@ -73,7 +78,31 @@ export default function ProfilePage({user,underline}) {
        }
        setshow(false)
     }
-    
+    const DeleteAcc=async()=>{
+      try {
+        const res=await axios.post("https://echopages3.onrender.com/api/v1/users/delete",{
+          password
+        },{withCredentials:true})
+        navigate("/login")
+      } catch (error) {
+        if (error.response && error.response.data) {
+      try {
+        const html = error.response.data;
+        const match = html.match(/<pre>Error: (.*?)<br>/);
+        if (match && match[1]) {
+          setwrong(true);
+          seterror(match[1]);
+        } else {
+          setwrong(true);
+          seterror("Unknown server error");
+        }
+      } catch (parseErr) {
+        setwrong(true);
+        seterror("Error parsing server response");
+      }
+    }         
+      }
+    }
     
   return (
     <>
@@ -102,7 +131,18 @@ export default function ProfilePage({user,underline}) {
             <p className="mt-3 text-xl text-gray-800">{blogData.length} blog contributions</p>
             {user=="true"&&<div className="flex">
             <Link to="/createblog" className="h-10 w-auto p-2 mt-5 text-white bg-indigo-400 hover:bg-indigo-500 rounded-xl" >Create New Blog</Link>
-             <button className="h-10 ml-10 w-auto p-2 mt-5 bg-rose-200 hover:bg-rose-300 rounded-xl">Delete Account</button>
+            {!confirmdelete&&<button className="h-10 ml-10 w-auto p-2 mt-5 cursor-pointer bg-rose-200 hover:bg-rose-300 rounded-xl" onClick={()=>setconfirmdelete(true)}>Delete Account</button>}
+             {confirmdelete&&
+             <div className="ml-3 h-auto w-auto p-3 bg-gray-400 rounded-xl">
+             <h1>Confirm password</h1>
+             {wrong&&<h1>**{error}**</h1>}
+             <input type="password" className="m-2 border-2px border-slate-800" onChange={(e)=>setpassword(e.target.value)}/>
+            <div className="flex justify-between">
+              <button className="cursor-pointer" onClick={DeleteAcc}>Confirm</button>
+             <button className="cursor-pointer" onClick={()=>setconfirmdelete(false)}>Cancel</button>
+             </div>
+             </div>
+           }
             </div>}
 
           </div>
